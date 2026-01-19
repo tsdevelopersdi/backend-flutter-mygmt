@@ -41,7 +41,7 @@ import {
   statPerson,
   statPersonKelas,
 } from "../controllers/StatistikController.js";
-
+import { changePassword } from "../controllers/SiswaController.js";
 // >>> DEFINE ROUTER FROM EXPRESS
 const router = express.Router();
 
@@ -52,6 +52,7 @@ router.post("/register", RegisterUser);
 router.post("/login", LoginUser);
 router.delete("/logout", LogoutUser);
 router.post("/attendance", VerifyToken, attendance);
+router.post("/changepassword", VerifyToken, changePassword);
 // router.post("/attendance", attendance);
 router.get("/recent/:id", getSpecificAttendance);
 

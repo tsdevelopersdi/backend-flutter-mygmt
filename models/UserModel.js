@@ -30,15 +30,15 @@ const Users = DB.define(
       type: DataTypes.STRING,
       defaultValue: null,
     },
-    status: {
-      type: DataTypes.STRING,
-      defaultValue: null,
-    },
     nik: {
       type: DataTypes.STRING,
       defaultValue: null,
     },
     android_id: {
+      type: DataTypes.STRING,
+      defaultValue: null,
+    },
+    department: {
       type: DataTypes.STRING,
       defaultValue: null,
     },

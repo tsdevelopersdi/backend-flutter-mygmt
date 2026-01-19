@@ -212,7 +212,7 @@ export const deleteSiswa = async (req, res) => {
       console.log(error);
     }
     res.status(200).json({ msg: "Siswa deleted successfuly" });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 // >>> ATTENDANCE API OLD
@@ -535,5 +535,38 @@ export const getSpecificAttendance = async (req, res) => {
     res.status(200).json({ data: response });
   } catch (error) {
     res.status(500).json(error);
+  }
+};
+
+// >>> CHANGE PASSWORD
+export const changePassword = async (req, res) => {
+  console.log("masuk nih pak eko");
+  console.log(req.body);
+  // return res.status(200).json("hello! wowo");
+  const { email, currentPassword, newPassword } = req.body;
+  try {
+    const user = await Users.findOne({
+      where: {
+        email: email,
+      },
+    });
+    if (!user) return res.status(404).json("user not found!");
+    const match = await bcrypt.compare(currentPassword, user.password);
+    if (!match) return res.status(400).json("current password is wrong!");
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    await Users.update(
+      {
+        password: hashedPassword,
+      },
+      {
+        where: {
+          email: email,
+        },
+      }
+    );
+    return res.status(200).json("password changed successfully!");
+  } catch (error) {
+    return res.status(400).json(error);
   }
 };

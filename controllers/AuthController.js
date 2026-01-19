@@ -89,6 +89,9 @@ export const LoginUser = async (req, res) => {
       const name = user[0].name;
       const email = user[0].email;
       const role = user[0].role;
+      const nik = user[0].nik;
+      const status = user[0].status;
+      const department = user[0].department;
       const accessToken = jwt.sign(
         { userId, name, email, role },
         process.env.ACCESS_TOKEN_SECRET,
@@ -121,7 +124,7 @@ export const LoginUser = async (req, res) => {
         success: true,
         accessToken,
         refreshToken,
-        user: { name: name, email: email, role: role },
+        user: { name: name, email: email, role: role, nik: nik, status: status, department: department },
       });
     }
     // return res.send("ada usersnya");
